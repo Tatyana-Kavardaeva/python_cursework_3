@@ -1,5 +1,5 @@
 import json
-from class_operation import Operation
+from src.class_operation import Operation
 
 
 def get_executed_operations(file):
