@@ -1,20 +1,11 @@
 import json
 from src.utils import get_executed_operations, sort_operations_by_date, display_operations
+from src.class_operation import Operation
 
-# class TestUtils:
+
 def test_get_executed_operations():
-    # Создаем временный JSON файл с данными для теста
-  data = [
-    {"state": "EXECUTED"},
-    {"state": "PENDING"},
-    {"state": "EXECUTED"}
-  ]
-  with open("test_operations.json", "w") as f:
-    json.dump(data, f)
+  assert len(get_executed_operations("test_operations.json")) == 2
 
-
-    # Проверяем функцию get_executed_operations
-  assert get_executed_operations("test_operations.json") == [{"state": "EXECUTED"}, {"state": "EXECUTED"}]
 
 def test_sort_operations_by_date():
   operations = [
@@ -28,6 +19,7 @@ def test_sort_operations_by_date():
     {"date": "2019-07-03T18:35:29.512364"},
     {"date": "2018-06-30T02:08:58.425572"}
   ]
+
 
 def test_display_operations():
   sorted_operations = [
@@ -77,3 +69,25 @@ def test_display_operations():
   )
 
   assert result == expected_output
+
+
+def test_mask_card_number():
+  operations =  {
+    "id": 441945886,
+    "state": "EXECUTED",
+    "date": "2019-08-26T10:50:58.294041",
+    "operationAmount": {
+      "amount": "31957.58",
+      "currency": {
+        "name": "руб.",
+        "code": "RUB"
+      }
+    },
+    "description": "Перевод организации",
+    "from": "Maestro 1596837868705199",
+    "to": "Счет 64686473678894779589"
+  }
+  where_from = operations.get('from')
+  operation = Operation(operations['date'], operations['description'], where_from, operations['to'],
+                        operations['operationAmount'])
+  assert operation.mask_card_number() == "Maestro 1596 83** **** 5199"

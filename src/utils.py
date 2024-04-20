@@ -29,6 +29,6 @@ def display_operations(sorted_operations, count_operation):
         where_from = operations.get('from')
         operation = Operation(operations['date'], operations['description'], where_from, operations['to'],
                               operations['operationAmount'])
-        print(f"{operation.formated_date()} {operation.discription}\n"
+        print(f"{operation.formated_date()} {operation.description}\n"
               f"{operation.mask_card_number()} -> {operation.mask_account_number()}\n"
               f"{operation.formated_amount()}\n")
