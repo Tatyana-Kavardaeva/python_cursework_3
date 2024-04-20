@@ -1,19 +1,19 @@
 from datetime import datetime
 
 class Operation:
-    def __init__(self, date, discription, where_from, to, operationAmount):
+    def __init__(self, date, description, where_from, to, operationamount):
         self.date = date
-        self.discription = discription
+        self.description = description
         self.where_from = where_from
         self.to = to
-        self.operationAmount = operationAmount
+        self.operationamount = operationamount
 
     def __repr__(self):
         return f"Operation(date = '{self.date}'" \
-               f"discription = '{self.discription}'" \
+               f"description = '{self.description}'" \
                f"self = '{self.where_from}'" \
                f"to = '{self.to}'" \
-               f"operationAmount = '{self.operationAmount}'"
+               f"operationamount = '{self.operationamount}'"
 
     def mask_card_number(self):
         """Принимает номер карты и возвращает замаскированную версию в формате
@@ -23,7 +23,7 @@ class Operation:
             card_number = self.where_from.split(' ')
             i = len(card_number)-1
             name_card = " ".join(card_number[:i])
-            return f"{name_card} {card_number[-1][:4]} {card_number[-1][4:6]}** **** {card_number[-1][:4]}"
+            return f"{name_card} {card_number[-1][:4]} {card_number[-1][4:6]}** **** {card_number[-1][-4:]}"
         else:
             return ''
 
@@ -41,5 +41,5 @@ class Operation:
 
     def formated_amount(self):
         "Возвращает сумму и валюту операции: 82771.72 руб."
-        currency = self.operationAmount.get("currency")
-        return f'{self.operationAmount.get("amount")} {currency.get("name")}'
+        currency = self.operationamount.get("currency")
+        return f'{self.operationamount.get("amount")} {currency.get("name")}'
