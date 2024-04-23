@@ -27,8 +27,7 @@ def display_operations(sorted_operations, count_operation):
     result = ''
     list_operations = sorted_operations[:count_operation]
     for operations in list_operations:
-        where_from = operations.get('from')
-        operation = Operation(operations['date'], operations['description'], where_from, operations['to'],
+        operation = Operation(operations['date'], operations['description'], operations.get('from'), operations['to'],
                               operations['operationAmount'])
-        result += f"{operation.__str__()}\n"
+        result += f"{operation}\n"
     return result
