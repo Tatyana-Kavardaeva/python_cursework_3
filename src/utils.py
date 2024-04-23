@@ -23,12 +23,12 @@ def display_operations(sorted_operations, count_operation):
     """Выводит указанное количество операций из отсортированного списка по шаблону:
     14.10.2018 Перевод организации
     Visa Platinum 7000 79** **** 6361 -> Счет **9638
-    82771.72 руб."""
+    82771.72 USD"""
+    result = ''
     list_operations = sorted_operations[:count_operation]
     for operations in list_operations:
         where_from = operations.get('from')
         operation = Operation(operations['date'], operations['description'], where_from, operations['to'],
                               operations['operationAmount'])
-        print(f"{operation.formated_date()} {operation.description}\n"
-              f"{operation.mask_card_number()} -> {operation.mask_account_number()}\n"
-              f"{operation.formated_amount()}\n")
+        result += f"{operation.__str__()}\n"
+    return result
