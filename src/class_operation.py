@@ -10,17 +10,16 @@ class Operation:
         self.operationamount = operationamount
 
     def __repr__(self):
-        return f"Operation(date = '{self.date}'" \
-               f"description = '{self.description}'" \
-               f"self = '{self.where_from}'" \
-               f"to = '{self.to}'" \
-               f"operationamount = '{self.operationamount}'"
+        return f"Operation(date='{self.date}', description='{self.description}', where_from='{self.where_from}', to='{self.to}', operationamount='{self.operationamount}')"
 
     def mask_card_number(self):
         """Принимает номер карты и возвращает замаскированную версию в формате
         XXXX XX** **** XXXX (видны первые 6 цифр и последние 4, разбито по блокам по 4 цифры,
         разделенных пробелом) Пример: 7000 79** **** """
-        if self.where_from:
+        if self.where_from is not None and "счет" in self.where_from.lower():
+            account_number = self.where_from.split(' ')
+            return f"{account_number[0]} **{account_number[1][-4:]}"
+        elif self.where_from:
             card_number = self.where_from.split(' ')
             i = len(card_number) - 1
             name_card = " ".join(card_number[:i])
